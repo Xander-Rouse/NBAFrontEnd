@@ -1,3 +1,4 @@
+import { Player } from './players.model';
 /*const app = document.getElementById('root');
 
 const container = document.createElement('div');
@@ -38,25 +39,32 @@ request.onload = function () {
 
 request.send();*/
 
-function addToTable($playerName, $playerTeam, $minutesPlayed, $plusMinus) {
-  var table = document.getElementById("players-Table");
-  var row = table.insertRow(0);
+function addToTable(PlayerName, PlayerTeam, minutesPlayed, plusMinus) {
+  var table = document.getElementById('players-Table');
+  var row = table.appendChild(row);
   var cell1 = row.insertCell(0);
   var cell2 = row.insertCell(1);
   var cell3 = row.insertCell(2);
   var cell4 = row.insertCell(3);
-  cell1.innerHTML = $playerName;
-  cell2.innerHTML = $playerTeam;
-  cell3.innerHTML = $minutesPlayed;
-  cell4.innerHTML = $plusMinus;
+  cell1.innerHTML = PlayerName;
+  cell2.innerHTML = PlayerTeam;
+  cell3.innerHTML = minutesPlayed;
+  cell4.innerHTML = plusMinus;
 }
 
-const requestUrl = "https://6243d34339aae3e3b7475f7a.mockapi.io/player";
-fetch(requestUrl)
-.then(response => response.json())
-.then(data => { 
-   // do something with the data the API has returned
-   data.player.forEach(playerId)
-   $playerName = playerName
-   addToTable($playerName, $playerTeam, $minutesPlayed, $plusMinus)
-})
+var request = new XMLHttpRequest();
+request.open('GET', 'https://6243d34339aae3e3b7475f7a.mockapi.io/');
+request.onload = function nah() {
+  // Begin accessing JSON data here
+  var data = JSON.parse(this.response);
+  console.log(data);
+  data.forEach((player) => {
+    var PlayerName = player.playerName;
+    var PlayerTeam = player.playerTeam;
+    var minutesPlayed = player.playerMinutes;
+    var plusMinus = player.playerPlusMinus;
+    addToTable(PlayerName, PlayerTeam, minutesPlayed, plusMinus);
+  });
+};
+
+request.send();

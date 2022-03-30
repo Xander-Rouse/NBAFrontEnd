@@ -1,5 +1,6 @@
 export interface Player {
-  id?: string;
-  title: string;
-  createdBy: string;
+  playerName: string;
+  playerTeam: string;
+  playerMinutes: number;
+  playerPlusMinus: number;
 }
